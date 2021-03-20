@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etPassword;
     private EditText etEmail;
     private Button btnRegister;
+    private Button btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etRegisterUsername);
         etEmail = findViewById(R.id.etEmail);
         btnRegister = findViewById(R.id.btnRegister);
+        btnCancel = findViewById(R.id.btnCancel);
 
         btnRegister.setOnClickListener(v -> {
             EditText etPassword1 = findViewById(R.id.etRegisterPassword1);
@@ -45,6 +47,10 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             createUser();
+        });
+
+        btnCancel.setOnClickListener(v -> {
+            goLoginActivity();
         });
     }
 
