@@ -8,6 +8,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/ivMainLogo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/nav_logo_whiteout" />
+
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="match_parent"

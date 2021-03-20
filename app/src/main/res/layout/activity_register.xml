@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
+    <ImageView
+        android:id="@+id/ivRegisterLogo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/nav_logo_whiteout"
+        android:contentDescription="@string/todo" />
+
     <EditText
         android:id="@+id/etRegisterUsername"
         android:layout_width="match_parent"
