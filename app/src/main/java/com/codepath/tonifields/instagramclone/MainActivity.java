@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
+    private Button btnLogOut;
     private File photoFile;
+    private int screenWidth;
     public String photoFileName = "photo.jpg";
 
     @Override
@@ -48,14 +50,18 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnLogOut = findViewById(R.id.btnLogOut);
 
         btnCaptureImage.setOnClickListener(v -> launchCamera());
+
+        // Get height or width of screen at runtime
+        screenWidth = DeviceDimensionsHelper.getDisplayWidth(this);
 
         // queryPosts();
         btnSubmit.setOnClickListener(v -> {
             String description = etDescription.getText().toString();
             if (description.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Description cannot be empty!", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (photoFile == null || ivPostImage.getDrawable() == null) {
@@ -65,6 +71,26 @@ public class MainActivity extends AppCompatActivity {
             ParseUser currentUser = ParseUser.getCurrentUser();
             savePost(description, currentUser, photoFile);
         });
+
+        btnLogOut.setOnClickListener(v -> {
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            if (currentUser != null) {
+                Toast.makeText(MainActivity.this, "User " + currentUser.getUsername() + " was logged out successfully!", Toast.LENGTH_SHORT).show();
+                ParseUser.logOut();
+                currentUser = ParseUser.getCurrentUser();  // this will now be null
+                if (currentUser == null) {
+                    goLoginActivity();
+                }
+            } else {
+                Log.i(TAG, "User could not be logged out!");
+            }
+        });
+    }
+
+    private void goLoginActivity() {
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+        finish();
     }
 
     private void launchCamera() {
@@ -95,8 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
+                // Resize a Bitmap maintaining aspect ratio based on screen width
+                Bitmap scaledImage = BitmapScaler.scaleToFitWidth(takenImage, screenWidth);
                 // Load the taken image into a preview
-                ivPostImage.setImageBitmap(takenImage);
+                ivPostImage.setImageBitmap(scaledImage);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }

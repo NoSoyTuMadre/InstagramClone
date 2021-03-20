@@ -12,8 +12,12 @@
     <string name="password">password</string>
     <string name="login">Login</string>
     <string name="username">username</string>
-    <string name="description">Description...</string>
+    <string name="description">Description…</string>
     <string name="take_picture">Take Picture</string>
     <string name="todo">TODO</string>
     <string name="submit">Submit</string>
+    <string name="log_out">Log Out</string>
+    <string name="register">Register</string>
+    <string name="reenter_password">reenter password</string>
+    <string name="email">email</string>
 </resources>
