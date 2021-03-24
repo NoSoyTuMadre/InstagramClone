@@ -21,4 +21,7 @@
     <string name="email">email</string>
     <string name="todo">TODO</string>
     <string name="cancel">Cancel</string>
+    <string name="profile">Profile</string>
+    <string name="compose">Compose</string>
+    <string name="home">Home</string>
 </resources>
