@@ -59,20 +59,9 @@ public class ComposeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ComposeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ComposeFragment newInstance(String param1, String param2) {
         ComposeFragment fragment = new ComposeFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -80,10 +69,6 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -209,20 +194,6 @@ public class ComposeFragment extends Fragment {
             Log.i(TAG, "Post save was successful!");
             etDescription.setText("");
             ivPostImage.setImageResource(0);
-        });
-    }
-
-    private void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground((posts, e) -> {
-            if (e != null) {
-                Log.e(TAG, "Issue with getting posts", e);
-                return;
-            }
-            for (Post post: posts) {
-                Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser());
-            }
         });
     }
 }
