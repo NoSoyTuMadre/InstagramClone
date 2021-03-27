@@ -53,21 +53,15 @@ public class PostsFragment extends Fragment {
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
 
-        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Your code here
-                Toast.makeText(getContext(), "Works!", Toast.LENGTH_LONG).show();
-                // To keep animation for 4 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Stop animation (This will be after 3 seconds)
-                        swipeLayout.setRefreshing(false);
-                    }
-                }, 4000); // Delay in millis
-            }
+        swipeLayout = view.findViewById(R.id.swipeContainer);
+        swipeLayout.setOnRefreshListener(() -> {
+            // Your code here
+            Toast.makeText(getContext(), "Refresh done!", Toast.LENGTH_LONG).show();
+            // To keep animation for 4 seconds
+            new Handler().postDelayed(() -> {
+                // Stop animation (This will be after 3 seconds)
+                swipeLayout.setRefreshing(false);
+            }, 4000); // Delay in millis
         });
         swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
